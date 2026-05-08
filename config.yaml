@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mostlygeek/llama-swap/refs/heads/main/config-schema.json
+
+logLevel: info
+logToStdout: proxy
+healthCheckTimeout: 900
+startPort: 10001
+includeAliasesInList: true
+globalTTL: 0
+
+macros:
+  llama: >-
+    llama-server
+    --host 0.0.0.0
+    --port ${PORT}
+    --jinja
+    --ctx-size 16384
+    --threads -1
+
+models:
+  "qwen3.6-27b":
+    name: "Qwen3.6 27B"
+    description: "Default thinking preset from Unsloth docs; alias qwen3.6-27b:nothink uses the recommended non-thinking preset"
+    cmd: >-
+      ${llama}
+      -m /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-27B-GGUF/Qwen3.6-27B-Q6_K.gguf
+      --mmproj /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-27B-GGUF/mmproj-Qwen3.6-27B-BF16.gguf
+    aliases:
+      - "qwen3.6-27b:nothink"
+    setParams:
+      top_k: 20
+      min_p: 0.0
+      repeat_penalty: 1.0
+    setParamsByID:
+      "${MODEL_ID}":
+        temperature: 1.0
+        top_p: 0.95
+        presence_penalty: 1.5
+        chat_template_kwargs:
+          enable_thinking: true
+      "${MODEL_ID}:nothink":
+        temperature: 0.7
+        top_p: 0.8
+        presence_penalty: 1.5
+        chat_template_kwargs:
+          enable_thinking: false
+
+  "qwen3.6-35b-a3b":
+    name: "Qwen3.6 35B A3B"
+    description: "Default thinking preset from Unsloth docs; alias qwen3.6-35b-a3b:nothink uses the recommended non-thinking preset"
+    cmd: >-
+      ${llama}
+      -m /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-Q6_K.gguf
+      --mmproj /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-35B-A3B-GGUF/mmproj-Qwen3.6-35B-A3B-BF16.gguf
+    aliases:
+      - "qwen3.6-35b-a3b:nothink"
+    setParams:
+      top_k: 20
+      min_p: 0.0
+      repeat_penalty: 1.0
+    setParamsByID:
+      "${MODEL_ID}":
+        temperature: 1.0
+        top_p: 0.95
+        presence_penalty: 1.5
+        chat_template_kwargs:
+          enable_thinking: true
+      "${MODEL_ID}:nothink":
+        temperature: 0.7
+        top_p: 0.8
+        presence_penalty: 1.5
+        chat_template_kwargs:
+          enable_thinking: false
