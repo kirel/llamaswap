@@ -25,11 +25,19 @@ The launchd installer auto-detects `llama-swap` from your `PATH`, so no machine-
 
 Backed by Unsloth MTP GGUFs via `llama-server -hf`, so models are fetched automatically on first load.
 
-
 - `qwen3.6-27b`
 - `qwen3.6-27b:nothink`
 - `qwen3.6-35b-a3b`
 - `qwen3.6-35b-a3b:nothink`
+
+## Tested hardware
+
+Tested on an Apple Silicon Mac with **64 GB unified memory**.
+
+- `qwen3.6-27b` works well on this setup
+- `qwen3.6-35b-a3b` also works, but with less memory headroom
+- MTP uses slightly more memory than standard GGUFs
+- closing other heavy local AI apps is recommended
 
 The `:nothink` variants use `enable_thinking: false` without forcing a model reload.
 
