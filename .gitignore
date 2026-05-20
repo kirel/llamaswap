@@ -1,2 +1,9 @@
-llama-swap.out.log
-llama-swap.err.log
+# macOS
+.DS_Store
+
+# local runtime logs
+*.log
+
+# generated local files
+.generated/
+*.plist.local

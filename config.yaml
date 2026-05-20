@@ -13,17 +13,19 @@ macros:
     --host 0.0.0.0
     --port ${PORT}
     --jinja
-    --ctx-size 16384
+    --ctx-size 262144
     --threads -1
+    --flash-attn on
 
 models:
   "qwen3.6-27b":
-    name: "Qwen3.6 27B"
-    description: "Default thinking preset from Unsloth docs; alias qwen3.6-27b:nothink uses the recommended non-thinking preset"
+    name: "Qwen3.6 27B MTP"
+    description: "Unsloth MTP preset via Hugging Face auto-download; tuned for coding in thinking mode, with a non-thinking alias for faster direct responses"
     cmd: >-
       ${llama}
-      -m /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-27B-GGUF/Qwen3.6-27B-Q6_K.gguf
-      --mmproj /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-27B-GGUF/mmproj-Qwen3.6-27B-BF16.gguf
+      -hf unsloth/Qwen3.6-27B-MTP-GGUF:UD-Q4_K_XL
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
     filters:
       setParams:
         top_k: 20
@@ -31,25 +33,26 @@ models:
         repeat_penalty: 1.0
       setParamsByID:
         "${MODEL_ID}":
-          temperature: 1.0
+          temperature: 0.6
           top_p: 0.95
-          presence_penalty: 1.5
+          presence_penalty: 0.0
           chat_template_kwargs:
             enable_thinking: true
         "${MODEL_ID}:nothink":
-          temperature: 0.7
-          top_p: 0.8
+          temperature: 1.0
+          top_p: 0.95
           presence_penalty: 1.5
           chat_template_kwargs:
             enable_thinking: false
 
   "qwen3.6-35b-a3b":
-    name: "Qwen3.6 35B A3B"
-    description: "Default thinking preset from Unsloth docs; alias qwen3.6-35b-a3b:nothink uses the recommended non-thinking preset"
+    name: "Qwen3.6 35B A3B MTP"
+    description: "Unsloth MTP preset via Hugging Face auto-download; tuned for coding in thinking mode, with a non-thinking alias for faster direct responses"
     cmd: >-
       ${llama}
-      -m /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-Q6_K.gguf
-      --mmproj /Users/daniel.kirsch/.lmstudio/models/lmstudio-community/Qwen3.6-35B-A3B-GGUF/mmproj-Qwen3.6-35B-A3B-BF16.gguf
+      -hf unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q4_K_XL
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
     filters:
       setParams:
         top_k: 20
@@ -57,14 +60,14 @@ models:
         repeat_penalty: 1.0
       setParamsByID:
         "${MODEL_ID}":
-          temperature: 1.0
+          temperature: 0.6
           top_p: 0.95
-          presence_penalty: 1.5
+          presence_penalty: 0.0
           chat_template_kwargs:
             enable_thinking: true
         "${MODEL_ID}:nothink":
-          temperature: 0.7
-          top_p: 0.8
+          temperature: 1.0
+          top_p: 0.95
           presence_penalty: 1.5
           chat_template_kwargs:
             enable_thinking: false

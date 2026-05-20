@@ -1,9 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-PLIST_NAME="com.daniel.llama-swap.plist"
+PLIST_NAME="local.llama-swap.plist"
 DEST_PLIST="$HOME/Library/LaunchAgents/$PLIST_NAME"
-LABEL="com.daniel.llama-swap"
+LABEL="local.llama-swap"
 DOMAIN="gui/$(id -u)"
 
 launchctl bootout "$DOMAIN" "$DEST_PLIST" >/dev/null 2>&1 || true

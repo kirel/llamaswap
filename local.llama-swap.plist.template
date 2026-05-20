@@ -3,13 +3,13 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.daniel.llama-swap</string>
+    <string>local.llama-swap</string>
 
     <key>ProgramArguments</key>
     <array>
-      <string>/opt/homebrew/bin/llama-swap</string>
+      <string>__LLAMA_SWAP_BIN__</string>
       <string>--config</string>
-      <string>/Users/daniel.kirsch/code/llamaswap/config.yaml</string>
+      <string>__PROJECT_DIR__/config.yaml</string>
       <string>--listen</string>
       <string>127.0.0.1:8080</string>
       <string>--watch-config</string>
@@ -22,19 +22,19 @@
     <true/>
 
     <key>WorkingDirectory</key>
-    <string>/Users/daniel.kirsch/code/llamaswap</string>
+    <string>__PROJECT_DIR__</string>
 
     <key>EnvironmentVariables</key>
     <dict>
       <key>PATH</key>
-      <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <string>__PATH_ENV__</string>
     </dict>
 
     <key>StandardOutPath</key>
-    <string>/Users/daniel.kirsch/code/llamaswap/llama-swap.out.log</string>
+    <string>__PROJECT_DIR__/llama-swap.out.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/daniel.kirsch/code/llamaswap/llama-swap.err.log</string>
+    <string>__PROJECT_DIR__/llama-swap.err.log</string>
 
     <key>ProcessType</key>
     <string>Interactive</string>
