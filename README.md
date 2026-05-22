@@ -123,6 +123,80 @@ curl http://127.0.0.1:8080/health
 curl http://127.0.0.1:8080/v1/models
 ```
 
+## Pi coding agent setup
+
+Pi can use `llama-swap` as an OpenAI-compatible local provider. Add the models to:
+
+```text
+~/.pi/agent/models.json
+```
+
+Recommended configuration:
+
+```json
+{
+  "providers": {
+    "llama-swap": {
+      "baseUrl": "http://127.0.0.1:8080/v1",
+      "api": "openai-completions",
+      "apiKey": "local",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false,
+        "maxTokensField": "max_tokens",
+        "thinkingFormat": "qwen-chat-template"
+      },
+      "models": [
+        {
+          "id": "qwen3.6-27b",
+          "name": "Qwen3.6 27B Thinking",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+        },
+        {
+          "id": "qwen3.6-27b:nothink",
+          "name": "Qwen3.6 27B No Thinking",
+          "reasoning": false,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+        },
+        {
+          "id": "qwen3.6-35b-a3b",
+          "name": "Qwen3.6 35B A3B Thinking",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+        },
+        {
+          "id": "qwen3.6-35b-a3b:nothink",
+          "name": "Qwen3.6 35B A3B No Thinking",
+          "reasoning": false,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+        }
+      ]
+    }
+  }
+}
+```
+
+Notes:
+
+- `apiKey` is required by Pi's provider config, but `llama-swap` ignores it; any non-empty value works.
+- `supportsDeveloperRole: false` makes Pi send the main instruction as a `system` message, which is safer for `llama.cpp` OpenAI compatibility.
+- `supportsReasoningEffort: false` prevents Pi from sending OpenAI-specific `reasoning_effort` parameters.
+- The `:nothink` model IDs use the `enable_thinking: false` aliases configured in `config.yaml` and avoid a model reload.
+- After editing `models.json`, open `/model` in Pi; the file is reloaded when the model picker opens.
+
 ## Example requests
 
 List models:
