@@ -4,7 +4,6 @@ This repository manages a local macOS `llama-swap` setup for Qwen3.6 MTP models 
 
 ## Before changing or operating the service
 
-- Read `README.md` first. It contains the canonical setup, restart, health-check, and Pi provider instructions.
 - Keep this repo machine-portable: do not commit absolute machine-specific paths except placeholders in templates.
 - Do not commit generated LaunchAgent plists from `~/Library/LaunchAgents/` or runtime logs.
 
